@@ -359,12 +359,11 @@ terminateApp:
 	if (selector == @selector(printNote:) || 
 		selector == @selector(deleteNote:) ||
 		selector == @selector(exportNote:) || 
-		selector == @selector(tagNote:) ||
-		selector == @selector(copyURL:)) {
+		selector == @selector(tagNote:)) {
 		
 		return (numberSelected > 0);
 		
-	} else if (selector == @selector(renameNote:)) {
+	} else if (selector == @selector(renameNote:) || selector == @selector(copyURL:)) {
 		
 		return (numberSelected == 1);
 	} else if (selector == @selector(fixFileEncoding:)) {

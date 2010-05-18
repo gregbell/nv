@@ -3,11 +3,34 @@
 <dictionary title="">
   <suite name="Notational Velocity Scripting" code="nvss"
     description="Commands and classes for Notational Velocity Scripting">
+		
+		<classes>
+      
+			<class name="application" code="capp" description="Notational Velocity" inherits="NSCoreSuite.NSApplication">
+				<cocoa class="NSApplication"/>
+				<properties>
+					<property name="selection" code="slct" type="note"
+						description="The currently selected note">
+						<cocoa method="selectedNoteObject"/>
+					</property>
+				</properties>
+			</class>
+			
+			<class name="note" code="note" description="A Notational Velocity note">
+				<cocoa class="NoteObject" />
+				<property name="title" code="titl" type="string">
+					<cocoa key="titleString" />
+				</property>
+			</class>
+				
+		</classes>
+		
 		<command name="search" code="nvsssrch" description="Perform a search">
 			<cocoa class="SearchCommand"/>
 			<direct-parameter>
 				<type type="text" name="searchTerm"/>
 			</direct-parameter>
 		</command>
+		
 	</suite>
 </dictionary>

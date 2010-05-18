@@ -359,7 +359,8 @@ terminateApp:
 	if (selector == @selector(printNote:) || 
 		selector == @selector(deleteNote:) ||
 		selector == @selector(exportNote:) || 
-		selector == @selector(tagNote:)) {
+		selector == @selector(tagNote:) ||
+		selector == @selector(copyURL:)) {
 		
 		return (numberSelected > 0);
 		
@@ -588,6 +589,24 @@ terminateApp:
 	AlienNoteImporter *importer = [[AlienNoteImporter alloc] init];
 	[importer importNotesFromDialogAroundWindow:window receptionDelegate:self];
 	[importer autorelease];
+}
+
+- (IBAction)copyURL:(id)sender {
+	// The standard -stringByAddingPercentEscapesUsingEncoding doesn't actually properly
+	// encode all characters such as '&' so we do it manually here.
+	NSString *title = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL,
+																																				(CFStringRef)titleOfNote(currentNote),
+																																				NULL,
+																																				(CFStringRef)@"!*'();:@&=+$,/?%#[]",
+																																				kCFStringEncodingUTF8 );	
+	NSString *scheme = @"nv://";
+	NSString *url = [scheme stringByAppendingFormat:@"%@",title];
+	
+	// Add to pasteboard
+	NSPasteboard *pb = [NSPasteboard generalPasteboard];
+	NSArray *types = [NSArray arrayWithObjects:NSStringPboardType, nil];
+	[pb declareTypes:types owner:self];
+	[pb setString:url forType:NSStringPboardType];
 }
 
 - (void)settingChangedForSelectorString:(NSString*)selectorString {

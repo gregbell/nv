@@ -79,6 +79,7 @@ void outletObjectAwoke(id sender);
 - (IBAction)printNote:(id)sender;
 - (IBAction)tagNote:(id)sender;
 - (IBAction)importNotes:(id)sender;
+- (IBAction)copyURL:(id)sender;
 
 - (IBAction)fieldAction:(id)sender;
 - (NoteObject*)createNoteIfNecessary;
